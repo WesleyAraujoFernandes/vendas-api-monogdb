@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo:7.0
+    container_name: mongodb
+    command: ["--replSet", "rs0", "--bind_ip_all", "--port", "27021"]
+    ports:
+      - "27021:27021"
+    healthcheck:
+      test: echo "try { rs.status() } catch (err) { rs.initiate({_id:'rs0',members:[{_id:0,host:'localhost:27021'}]}) }" | mongosh --port 27021 --quiet
+      interval: 5s
+      timeout: 30s
+      start_period: 0s
+      start_interval: 1s
+      retries: 30
+    volumes:
+      - "mongo_data:/data/db"
+      - "mongo_config:/data/configdb"
+      - "./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro"
+    entrypoint: [ "bash", "-c", "mongod --replSet rs0 --bind_ip_all --port 27021 & sleep 5 && mongosh --port 27021 /docker-entrypoint-initdb.d/init-mongo.js && wait" ]
+
+volumes:
+  mongo_data:
+  mongo_config:
