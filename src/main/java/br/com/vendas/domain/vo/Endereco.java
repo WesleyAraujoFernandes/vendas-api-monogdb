@@ -1,4 +1,4 @@
-package br.com.vendas.vo;
+package br.com.vendas.domain.vo;
 
 public class Endereco {
 
@@ -10,7 +10,7 @@ public class Endereco {
     private String complemento;
     private String numero;
 
-    public Endereco(String cep, String uf, String cidade, String bairro, String logradouro, String complemento, String numero) {
+    private Endereco(String cep, String uf, String cidade, String bairro, String logradouro, String complemento, String numero) {
         this.cep = cep;
         this.uf = uf;
         this.cidade = cidade;
@@ -18,6 +18,10 @@ public class Endereco {
         this.logradouro = logradouro;
         this.complemento = complemento;
         this.numero = numero;
+    }
+
+    public static Endereco novoEndereco(String cep, String uf, String cidade, String bairro, String logradouro, String complemento, String numero) {
+        return new Endereco(cep, uf, cidade, bairro, logradouro, complemento, numero);
     }
 
     public String getCep() {

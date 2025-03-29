@@ -1,6 +1,6 @@
-package br.com.vendas.model;
+package br.com.vendas.domain.model;
 
-import br.com.vendas.vo.Endereco;
+import br.com.vendas.domain.vo.Endereco;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -24,9 +24,9 @@ public class Cliente {
         this.ativo = ativo;
     }
 
-    public static Cliente novoCliente(String nome, String cpf, Endereco endereco, Boolean ativo) {
+    public static Cliente novoCliente(String nome, String cpf, Endereco endereco) {
         final var id = UUID.randomUUID().toString();
-        return new Cliente(id, nome, cpf, endereco, ativo);
+        return new Cliente(id, nome, cpf, endereco, true);
     }
 
     public String getId() {
