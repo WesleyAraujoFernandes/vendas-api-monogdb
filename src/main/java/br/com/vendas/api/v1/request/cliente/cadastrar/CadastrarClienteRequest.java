@@ -1,4 +1,4 @@
-package br.com.vendas.api.v1.request;
+package br.com.vendas.api.v1.request.cliente.cadastrar;
 
 import br.com.vendas.domain.model.Cliente;
 

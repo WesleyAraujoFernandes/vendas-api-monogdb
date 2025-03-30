@@ -1,6 +1,6 @@
-package br.com.vendas.api.v1.response;
+package br.com.vendas.api.v1.response.cliente.cadastrar;
 
-import br.com.vendas.api.v1.request.EnderecoRequest;
+import br.com.vendas.api.v1.request.cliente.cadastrar.EnderecoRequest;
 import br.com.vendas.domain.model.Cliente;
 
 public record CadastrarClienteResponse(
