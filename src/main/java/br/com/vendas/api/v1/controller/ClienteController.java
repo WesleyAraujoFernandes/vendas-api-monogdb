@@ -1,10 +1,13 @@
 package br.com.vendas.api.v1.controller;
 
-import br.com.vendas.api.v1.request.cliente.cadastrar.CadastrarClienteRequest;
-import br.com.vendas.api.v1.response.cliente.cadastrar.CadastrarClienteResponse;
+import br.com.vendas.api.v1.request.CadastrarClienteRequest;
+import br.com.vendas.api.v1.response.CadastrarClienteResponse;
+import br.com.vendas.api.v1.response.ClienteResponse;
 import br.com.vendas.domain.service.ClienteService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/clientes")
@@ -28,9 +31,16 @@ public class ClienteController {
         return ResponseEntity.ok(CadastrarClienteResponse.fromModel(cliente));
     }
 
+    @GetMapping
+    public ResponseEntity<List<ClienteResponse>> listar(@RequestParam(required = false, defaultValue = "") String nome) {
+        final var clientes = clienteService.listar(nome);
+        return ResponseEntity.ok(clientes.stream().map(ClienteResponse::fromModel).toList());
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarPorId(@PathVariable String id) {
         clienteService.deletarPorId(id);
         return ResponseEntity.noContent().build();
     }
+
 }

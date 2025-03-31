@@ -1,13 +1,13 @@
-package br.com.vendas.api.v1.response.cliente.buscar;
+package br.com.vendas.api.v1.response;
 
-import br.com.vendas.api.v1.request.cliente.cadastrar.EnderecoRequest;
 import br.com.vendas.domain.model.Cliente;
+import br.com.vendas.domain.vo.Endereco;
 
 public record BuscarClientePorIdResponse(
         String id,
         String nome,
         String cpf,
-        EnderecoRequest endereco
+        Endereco endereco
 ) {
 
     public static BuscarClientePorIdResponse fromModel(Cliente cliente) {
@@ -15,7 +15,7 @@ public record BuscarClientePorIdResponse(
                 cliente.getId(),
                 cliente.getNome(),
                 cliente.getCpf(),
-                new EnderecoRequest(
+                Endereco.novoEndereco(
                         cliente.getEndereco().getCep(),
                         cliente.getEndereco().getUf(),
                         cliente.getEndereco().getCidade(),
