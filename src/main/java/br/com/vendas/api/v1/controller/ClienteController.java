@@ -1,6 +1,8 @@
 package br.com.vendas.api.v1.controller;
 
+import br.com.vendas.api.v1.request.AtualizarClienteRequest;
 import br.com.vendas.api.v1.request.CadastrarClienteRequest;
+import br.com.vendas.api.v1.response.AtualizarClienteResponse;
 import br.com.vendas.api.v1.response.CadastrarClienteResponse;
 import br.com.vendas.api.v1.response.ClienteResponse;
 import br.com.vendas.domain.service.ClienteService;
@@ -23,6 +25,12 @@ public class ClienteController {
     public ResponseEntity<CadastrarClienteResponse> cadastrar(@RequestBody CadastrarClienteRequest request) {
         final var cliente = clienteService.cadastrar(CadastrarClienteRequest.toModel(request));
         return ResponseEntity.ok(CadastrarClienteResponse.fromModel(cliente));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<AtualizarClienteResponse> atualizar(@PathVariable String id, @RequestBody AtualizarClienteRequest request) {
+        final var cliente = clienteService.atualizar(id, AtualizarClienteRequest.toModel(request));
+        return ResponseEntity.ok(AtualizarClienteResponse.fromModel(cliente));
     }
 
     @GetMapping("/{id}")

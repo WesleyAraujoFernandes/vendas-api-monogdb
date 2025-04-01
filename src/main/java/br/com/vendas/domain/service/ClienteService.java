@@ -20,6 +20,12 @@ public class ClienteService {
         return clienteRepository.save(cliente);
     }
 
+    public Cliente atualizar(String id, Cliente cliente) {
+        final var cli = buscarPorId(id);
+        cli.atualizar(cliente.getNome(), cliente.getCpf(), cliente.getEndereco());
+        return clienteRepository.save(cli);
+    }
+
     public Cliente buscarPorId(String id) {
         return clienteRepository.findById(id).orElseThrow();
     }
