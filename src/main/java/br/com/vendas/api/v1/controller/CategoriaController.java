@@ -1,7 +1,9 @@
 package br.com.vendas.api.v1.controller;
 
+import br.com.vendas.api.v1.request.AtualizarCategoriaRequest;
 import br.com.vendas.api.v1.request.CadastrarCategoriaRequest;
 import br.com.vendas.api.v1.request.CategoriaResponse;
+import br.com.vendas.api.v1.response.AtualizarCategoriaResponse;
 import br.com.vendas.api.v1.response.BuscarCategoriaPorIdResponse;
 import br.com.vendas.api.v1.response.CadastrarCategoriaResponse;
 import br.com.vendas.domain.service.CategoriaService;
@@ -26,6 +28,12 @@ public class CategoriaController {
         return ResponseEntity.ok(CadastrarCategoriaResponse.fromModel(categoria));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<AtualizarCategoriaResponse> atualizar(@PathVariable String id, @RequestBody AtualizarCategoriaRequest request) {
+        final var categoria = categoriaService.atualizar(id, AtualizarCategoriaRequest.toModel(request));
+        return ResponseEntity.ok(AtualizarCategoriaResponse.fromModel(categoria));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<BuscarCategoriaPorIdResponse> buscarPorId(@PathVariable String id) {
         final var categoria = categoriaService.buscarPorId(id);
@@ -36,5 +44,11 @@ public class CategoriaController {
     public ResponseEntity<List<CategoriaResponse>> listar() {
         final var categorias = categoriaService.listar();
         return ResponseEntity.ok(categorias.stream().map(CategoriaResponse::fromModel).toList());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarPorId(@PathVariable String id) {
+        categoriaService.deletarPorId(id);
+        return ResponseEntity.noContent().build();
     }
 }

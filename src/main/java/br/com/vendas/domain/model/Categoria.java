@@ -24,6 +24,12 @@ public class Categoria {
         return new Categoria(id, nome, descricao);
     }
 
+    public Categoria atualizar(String nome, String descricao) {
+        this.nome = nome;
+        this.descricao = descricao;
+        return this;
+    }
+
     public String getId() {
         return id;
     }

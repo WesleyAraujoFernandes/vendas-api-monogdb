@@ -26,4 +26,14 @@ public class CategoriaService {
     public List<Categoria> listar() {
         return categoriaRepository.findAll();
     }
+
+    public Categoria atualizar(String id, Categoria categoria) {
+        var categoriaExistente = buscarPorId(id);
+        categoriaExistente.atualizar(categoria.getNome(), categoria.getDescricao());
+        return categoriaRepository.save(categoriaExistente);
+    }
+
+    public void deletarPorId(String id) {
+        categoriaRepository.deleteById(id);
+    }
 }
