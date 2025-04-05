@@ -1,4 +1,4 @@
-package br.com.vendas.api.v1.request;
+package br.com.vendas.api.v1.response;
 
 import br.com.vendas.domain.model.Categoria;
 

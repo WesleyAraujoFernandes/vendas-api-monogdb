@@ -2,7 +2,7 @@ package br.com.vendas.api.v1.controller;
 
 import br.com.vendas.api.v1.request.AtualizarCategoriaRequest;
 import br.com.vendas.api.v1.request.CadastrarCategoriaRequest;
-import br.com.vendas.api.v1.request.CategoriaResponse;
+import br.com.vendas.api.v1.response.CategoriaResponse;
 import br.com.vendas.api.v1.response.AtualizarCategoriaResponse;
 import br.com.vendas.api.v1.response.BuscarCategoriaPorIdResponse;
 import br.com.vendas.api.v1.response.CadastrarCategoriaResponse;

@@ -1,9 +1,12 @@
 package br.com.vendas.domain.service;
 
+import br.com.vendas.domain.model.Cliente;
 import br.com.vendas.domain.model.Produto;
 import br.com.vendas.domain.repository.CategoriaRepository;
 import br.com.vendas.domain.repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ProdutoService {
@@ -24,5 +27,17 @@ public class ProdutoService {
             }
         }
         return produtoRepository.save(produto);
+    }
+
+    public Produto buscarPorId(String id) {
+        return produtoRepository.findById(id).orElseThrow();
+    }
+
+    public List<Produto> listar(String nome) {
+        if (nome == null || nome.isEmpty()) {
+            return produtoRepository.findAll();
+        } else {
+            return produtoRepository.findByNomeContainingIgnoreCase(nome);
+        }
     }
 }
