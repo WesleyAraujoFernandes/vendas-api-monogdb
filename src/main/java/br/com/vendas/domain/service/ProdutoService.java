@@ -1,6 +1,5 @@
 package br.com.vendas.domain.service;
 
-import br.com.vendas.domain.model.Cliente;
 import br.com.vendas.domain.model.Produto;
 import br.com.vendas.domain.repository.CategoriaRepository;
 import br.com.vendas.domain.repository.ProdutoRepository;
@@ -39,5 +38,22 @@ public class ProdutoService {
         } else {
             return produtoRepository.findByNomeContainingIgnoreCase(nome);
         }
+    }
+
+    public Produto atualizar(String id, Produto produto) {
+        var produtoExistente = buscarPorId(id);
+        produtoExistente.atualizar(
+                produto.getNome(),
+                produto.getDescricao(),
+                produto.getCategorias(),
+                produto.getCodigoDeBarras(),
+                produto.getPreco(),
+                produto.getQuantidade()
+        );
+        return produtoRepository.save(produtoExistente);
+    }
+
+    public void deletarPorId(String id) {
+        produtoRepository.deleteById(id);
     }
 }

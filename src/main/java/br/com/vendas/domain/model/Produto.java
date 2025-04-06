@@ -37,6 +37,17 @@ public class Produto {
         return new Produto(id, nome, descricao, categorias, codigoDeBarras, preco, quantidade, true);
     }
 
+    public Produto atualizar(String nome, String descricao, List<String> categorias, String codigoDeBarras,
+                              Double preco, Integer quantidade) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.categorias = categorias;
+        this.codigoDeBarras = codigoDeBarras;
+        this.preco = preco;
+        this.quantidade = quantidade;
+        return this;
+    }
+
     public String getId() {
         return id;
     }

@@ -4,7 +4,7 @@ import br.com.vendas.domain.model.Produto;
 
 import java.util.List;
 
-public record ProdutoResponse(
+public record AtualizarProdutoResponse(
         String id,
         String nome,
         String descricao,
@@ -14,8 +14,8 @@ public record ProdutoResponse(
         Integer quantidade
 ) {
 
-    public static ProdutoResponse fromModel(Produto produto) {
-        return new ProdutoResponse(
+    public static AtualizarProdutoResponse fromModel(Produto produto) {
+        return new AtualizarProdutoResponse(
                 produto.getId(),
                 produto.getNome(),
                 produto.getDescricao(),
