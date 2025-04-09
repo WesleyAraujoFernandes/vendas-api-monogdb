@@ -3,6 +3,7 @@ package br.com.vendas.api.v1.controller;
 import br.com.vendas.api.v1.request.AtualizarClienteRequest;
 import br.com.vendas.api.v1.request.CadastrarClienteRequest;
 import br.com.vendas.api.v1.response.AtualizarClienteResponse;
+import br.com.vendas.api.v1.response.BuscarClientePorIdResponse;
 import br.com.vendas.api.v1.response.CadastrarClienteResponse;
 import br.com.vendas.api.v1.response.ClienteResponse;
 import br.com.vendas.domain.service.ClienteService;
@@ -34,9 +35,9 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CadastrarClienteResponse> buscarPorId(@PathVariable String id) {
+    public ResponseEntity<BuscarClientePorIdResponse> buscarPorId(@PathVariable String id) {
         final var cliente = clienteService.buscarPorId(id);
-        return ResponseEntity.ok(CadastrarClienteResponse.fromModel(cliente));
+        return ResponseEntity.ok(BuscarClientePorIdResponse.fromModel(cliente));
     }
 
     @GetMapping
