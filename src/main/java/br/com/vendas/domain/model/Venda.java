@@ -5,8 +5,11 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Document(collection = "venda")
 public class Venda {
@@ -19,21 +22,44 @@ public class Venda {
     private StatusVenda status;
     private List<ItemVenda> items;
 
-    private Venda(String id, String clienteId, Double valor, List<ItemVenda> items) {
-        this.id = id;
+    private Venda(String clienteId, List<ItemVenda> items) {
+        this.id = UUID.randomUUID().toString();
         this.clienteId = clienteId;
         this.data = LocalDateTime.now();
-        this.valor = valor;
+        this.valor = 0.0;
         this.status = StatusVenda.ABERTA;
-        this.items = items;
+        this.items = items != null ? items : new ArrayList<>();
     }
 
     public static Venda novaVenda(String clienteId, List<ItemVenda> items) {
-        final var id = UUID.randomUUID().toString();
-        final var valor = items.stream()
+        return new Venda(clienteId, items);
+    }
+
+    public void calcularValor() {
+        this.valor = this.items.stream()
                 .mapToDouble(ItemVenda::getPrecoTotal)
                 .sum();
-        return new Venda(id, clienteId, valor, items);
+    }
+
+    public void agruparItens() {
+        Map<String, ItemVenda> itensAgrupados = this.items.stream()
+                .collect(Collectors.toMap(
+                        ItemVenda::getProdutoId,
+                        item -> ItemVenda.novoItemVenda(
+                                item.getProdutoId(),
+                                null,
+                                null,
+                                item.getQuantidade(),
+                                null
+                        ),
+                        (item1, item2) -> {
+                            item1.setQuantidade(item1.getQuantidade() + item2.getQuantidade());
+                            return item1;
+                        }
+                ));
+
+        this.items.clear();
+        this.items.addAll(itensAgrupados.values());
     }
 
     public String getId() {
