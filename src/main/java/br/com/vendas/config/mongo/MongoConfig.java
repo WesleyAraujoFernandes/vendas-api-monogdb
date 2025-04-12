@@ -1,4 +1,4 @@
-package br.com.vendas.config;
+package br.com.vendas.config.mongo;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

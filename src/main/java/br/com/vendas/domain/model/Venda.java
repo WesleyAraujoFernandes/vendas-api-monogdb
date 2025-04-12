@@ -5,10 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Document(collection = "venda")
@@ -67,7 +64,7 @@ public class Venda {
     }
 
     public List<ItemVenda> getItems() {
-        return items;
+        return Collections.unmodifiableList(items);
     }
 
     public StatusVenda getStatus() {
