@@ -1,5 +1,6 @@
 package br.com.vendas.api.v1.controller;
 
+import br.com.vendas.api.v1.openapi.ClienteOpenAPI;
 import br.com.vendas.api.v1.request.AtualizarClienteRequest;
 import br.com.vendas.api.v1.request.CadastrarClienteRequest;
 import br.com.vendas.api.v1.response.AtualizarClienteResponse;
@@ -14,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/clientes")
-public class ClienteController {
+public class ClienteController implements ClienteOpenAPI {
 
     private final ClienteService clienteService;
 
@@ -22,34 +23,28 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
 
-    @PostMapping
-    public ResponseEntity<CadastrarClienteResponse> cadastrar(@RequestBody CadastrarClienteRequest request) {
+    public ResponseEntity<CadastrarClienteResponse> cadastrar(CadastrarClienteRequest request) {
         final var cliente = clienteService.cadastrar(CadastrarClienteRequest.toModel(request));
         return ResponseEntity.ok(CadastrarClienteResponse.fromModel(cliente));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<AtualizarClienteResponse> atualizar(@PathVariable String id, @RequestBody AtualizarClienteRequest request) {
+    public ResponseEntity<AtualizarClienteResponse> atualizar(String id, AtualizarClienteRequest request) {
         final var cliente = clienteService.atualizar(id, AtualizarClienteRequest.toModel(request));
         return ResponseEntity.ok(AtualizarClienteResponse.fromModel(cliente));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<BuscarClientePorIdResponse> buscarPorId(@PathVariable String id) {
+    public ResponseEntity<BuscarClientePorIdResponse> buscarPorId(String id) {
         final var cliente = clienteService.buscarPorId(id);
         return ResponseEntity.ok(BuscarClientePorIdResponse.fromModel(cliente));
     }
 
-    @GetMapping
-    public ResponseEntity<List<ClienteResponse>> listar(@RequestParam(required = false, defaultValue = "") String nome) {
+    public ResponseEntity<List<ClienteResponse>> listar(String nome) {
         final var clientes = clienteService.listar(nome);
         return ResponseEntity.ok(clientes.stream().map(ClienteResponse::fromModel).toList());
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarPorId(@PathVariable String id) {
+    public ResponseEntity<Void> deletarPorId(String id) {
         clienteService.deletarPorId(id);
         return ResponseEntity.noContent().build();
     }
-
 }

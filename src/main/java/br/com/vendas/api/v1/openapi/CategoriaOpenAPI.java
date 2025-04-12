@@ -44,9 +44,9 @@ public interface CategoriaOpenAPI {
     @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     ResponseEntity<List<CategoriaResponse>> listar();
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @Operation(summary = "Deleta uma categoria")
-    @ApiResponse(responseCode = "204", description = "Categorias deletada com sucesso!")
+    @ApiResponse(responseCode = "204", description = "Categoria deletada com sucesso!")
     @ApiResponse(responseCode = "404", description = "Categoria não encontrada")
     @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     ResponseEntity<Void> deletarPorId(@PathVariable String id);
