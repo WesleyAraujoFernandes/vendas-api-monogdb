@@ -3,11 +3,12 @@ package br.com.vendas.domain.model;
 public enum StatusVenda {
 
     ABERTA(1),
-    FECHADA(2);
+    FINALIZADA(2),
+    CANCELADA(3);
 
     private Integer codigo;
 
-    StatusVenda(int codigo) {
+    StatusVenda(Integer codigo) {
         this.codigo = codigo;
     }
 
@@ -15,7 +16,7 @@ public enum StatusVenda {
         return codigo;
     }
 
-    public static StatusVenda fromCodigo(int codigo) {
+    public static StatusVenda fromCodigo(Integer codigo) {
         for (StatusVenda status : StatusVenda.values()) {
             if (status.getCodigo() == codigo) {
                 return status;
