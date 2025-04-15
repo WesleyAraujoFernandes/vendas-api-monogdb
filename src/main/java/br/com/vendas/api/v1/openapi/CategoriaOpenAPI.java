@@ -29,7 +29,8 @@ public interface CategoriaOpenAPI {
     @ApiResponse(responseCode = "200", description = "Categoria atualizada com sucesso")
     @ApiResponse(responseCode = "400", description = "Erro de validação")
     @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
-    ResponseEntity<AtualizarCategoriaResponse> atualizar(@PathVariable String id, @RequestBody AtualizarCategoriaRequest request);
+    ResponseEntity<AtualizarCategoriaResponse> atualizar(@PathVariable String id,
+                                                         @RequestBody AtualizarCategoriaRequest request);
 
     @GetMapping("/{id}")
     @Operation(summary = "Busca uma categoria por ID")

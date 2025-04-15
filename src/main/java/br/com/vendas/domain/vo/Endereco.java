@@ -10,7 +10,8 @@ public class Endereco {
     private String complemento;
     private String numero;
 
-    private Endereco(String cep, String uf, String cidade, String bairro, String logradouro, String complemento, String numero) {
+    private Endereco(String cep, String uf, String cidade, String bairro, String logradouro,
+                     String complemento, String numero) {
         this.cep = cep;
         this.uf = uf;
         this.cidade = cidade;
@@ -20,7 +21,8 @@ public class Endereco {
         this.numero = numero;
     }
 
-    public static Endereco novoEndereco(String cep, String uf, String cidade, String bairro, String logradouro, String complemento, String numero) {
+    public static Endereco novoEndereco(String cep, String uf, String cidade, String bairro,
+                                        String logradouro, String complemento, String numero) {
         return new Endereco(cep, uf, cidade, bairro, logradouro, complemento, numero);
     }
 

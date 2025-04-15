@@ -16,7 +16,8 @@ public class ItemVenda {
         this.precoTotal = precoTotal;
     }
 
-    public static ItemVenda novoItemVenda(String produtoId, String nome, Double preco, Integer quantidade, Double precoTotal) {
+    public static ItemVenda novoItemVenda(String produtoId, String nome, Double preco,
+                                          Integer quantidade, Double precoTotal) {
         return new ItemVenda(produtoId, nome, preco, quantidade, precoTotal);
     }
 
