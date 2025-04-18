@@ -55,7 +55,6 @@ public class Venda {
                         }
                 ));
 
-        this.items.clear();
         this.items.addAll(itensAgrupados.values());
     }
 
@@ -64,7 +63,7 @@ public class Venda {
     }
 
     public List<ItemVenda> getItems() {
-        return Collections.unmodifiableList(items);
+        return items;
     }
 
     public StatusVenda getStatus() {

@@ -2,6 +2,7 @@ package br.com.vendas.api.v1.controller;
 
 import br.com.vendas.api.v1.openapi.VendaOpenAPI;
 import br.com.vendas.api.v1.request.CadastrarVendaRequest;
+import br.com.vendas.api.v1.request.ItemVendaRequest;
 import br.com.vendas.api.v1.response.CadastrarVendaResponse;
 import br.com.vendas.domain.service.VendaService;
 import org.springframework.http.ResponseEntity;
@@ -22,5 +23,11 @@ public class VendaController implements VendaOpenAPI {
     public ResponseEntity<CadastrarVendaResponse> cadastrar(CadastrarVendaRequest request) {
         final var venda = vendaService.cadastrar(CadastrarVendaRequest.aPartirDe(request));
         return ResponseEntity.ok().body(new CadastrarVendaResponse(venda.getId()));
+    }
+
+    @Override
+    public ResponseEntity<Void> adicionarItemVenda(String vendaId, ItemVendaRequest request) {
+        vendaService.adicionarItemVenda(vendaId, ItemVendaRequest.toModel(request));
+        return ResponseEntity.noContent().build();
     }
 }
