@@ -55,7 +55,46 @@ public class Venda {
                         }
                 ));
 
+        this.items.clear();
         this.items.addAll(itensAgrupados.values());
+    }
+
+    public void adicionarItem(ItemVenda itemVenda) {
+        this.items
+                .stream()
+                .filter(item -> item.getProdutoId().equals(itemVenda.getProdutoId()))
+                .findFirst()
+                .ifPresentOrElse(
+                        item -> {
+                            item.setQuantidade(item.getQuantidade() + itemVenda.getQuantidade());
+                            item.setPreco(itemVenda.getPreco());
+                            item.setPrecoTotal(item.getQuantidade() * item.getPreco());
+                        },
+                        () -> this.items.add(itemVenda)
+                );
+        this.calcularValor();
+    }
+
+    public void removerItem(ItemVenda itemVenda) {
+        this.items
+                .stream()
+                .filter(item -> item.getProdutoId().equals(itemVenda.getProdutoId()))
+                .findFirst()
+                .ifPresentOrElse(
+                        item -> {
+                            if (item.getQuantidade() <= itemVenda.getQuantidade()) {
+                                this.items.remove(item);
+                            } else {
+                                item.setQuantidade(item.getQuantidade() - itemVenda.getQuantidade());
+                                item.setPrecoTotal(item.getPreco() * item.getQuantidade());
+                            }
+                        },
+                        () -> {
+                            throw new IllegalArgumentException("Item não encontrado na venda");
+                        }
+                );
+
+        this.calcularValor();
     }
 
     public String getId() {
@@ -63,7 +102,7 @@ public class Venda {
     }
 
     public List<ItemVenda> getItems() {
-        return items;
+        return Collections.unmodifiableList(items);
     }
 
     public StatusVenda getStatus() {

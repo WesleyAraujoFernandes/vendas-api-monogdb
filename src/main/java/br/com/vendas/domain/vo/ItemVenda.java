@@ -16,6 +16,13 @@ public class ItemVenda {
         this.precoTotal = precoTotal;
     }
 
+    public void atualizarInformaces(String nome, Double preco, Integer quantidade) {
+        this.nome = nome;
+        this.preco = preco;
+        this.quantidade = quantidade;
+        this.precoTotal = preco * quantidade;
+    }
+
     public static ItemVenda novoItemVenda(String produtoId, String nome, Double preco,
                                           Integer quantidade, Double precoTotal) {
         return new ItemVenda(produtoId, nome, preco, quantidade, precoTotal);

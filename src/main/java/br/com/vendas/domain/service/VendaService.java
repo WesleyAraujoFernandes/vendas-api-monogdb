@@ -60,9 +60,30 @@ public class VendaService {
         final var produto = produtoRepository.findById(itemVenda.getProdutoId())
                 .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
 
-        adicionarItem(venda, itemVenda, produto);
+        itemVenda.atualizarInformaces(
+                produto.getNome(),
+                produto.getPreco(),
+                itemVenda.getQuantidade()
+        );
 
-        venda.calcularValor();
+        venda.adicionarItem(itemVenda);
+
+        vendaRepository.save(venda);
+    }
+
+    public void removerItemVenda(String vendaId, ItemVenda itemVenda) {
+
+        if (itemVenda.getQuantidade() <= 0) {
+            throw new IllegalArgumentException("Quantidade deve ser maior que zero");
+        }
+
+        final var venda = vendaRepository.findById(vendaId)
+                .orElseThrow(() -> new IllegalArgumentException("Venda não encontrada"));
+
+        produtoRepository.findById(itemVenda.getProdutoId())
+                .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
+
+        venda.removerItem(itemVenda);
 
         vendaRepository.save(venda);
     }
@@ -78,25 +99,5 @@ public class VendaService {
             item.setPreco(produto.getPreco());
             item.setPrecoTotal(produto.getPreco() * item.getQuantidade());
         });
-    }
-
-    private void adicionarItem(Venda venda, ItemVenda itemVenda, Produto produto) {
-        ItemVenda itemExistente = venda.getItems()
-                .stream()
-                .filter(item -> item.getProdutoId().equals(itemVenda.getProdutoId()))
-                .findFirst()
-                .orElse(null);
-
-        if (itemExistente != null) {
-
-            itemExistente.setQuantidade(itemExistente.getQuantidade() + itemVenda.getQuantidade());
-            itemExistente.setPrecoTotal(itemExistente.getPrecoTotal() + (itemVenda.getQuantidade() * itemExistente.getPreco()));
-        } else {
-            itemVenda.setNome(produto.getNome());
-            itemVenda.setPreco(produto.getPreco());
-            itemVenda.setPrecoTotal(itemVenda.getQuantidade() * produto.getPreco());
-
-            venda.getItems().add(itemVenda);
-        }
     }
 }

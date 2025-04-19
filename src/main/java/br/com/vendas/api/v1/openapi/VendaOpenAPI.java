@@ -27,4 +27,11 @@ public interface VendaOpenAPI {
     @ApiResponse(responseCode = "400", description = "Erro de validação")
     @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     ResponseEntity<Void> adicionarItemVenda(@PathVariable("vendaId") String vendaId, @RequestBody ItemVendaRequest request);
+
+    @PostMapping("/{vendaId}/itens/remover")
+    @Operation(summary = "Remove um item da venda")
+    @ApiResponse(responseCode = "204", description = "Item removido com sucesso")
+    @ApiResponse(responseCode = "400", description = "Erro de validação")
+    @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    ResponseEntity<Void> removerItemVenda(@PathVariable("vendaId") String vendaId, @RequestBody ItemVendaRequest request);
 }

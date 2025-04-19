@@ -30,4 +30,10 @@ public class VendaController implements VendaOpenAPI {
         vendaService.adicionarItemVenda(vendaId, ItemVendaRequest.toModel(request));
         return ResponseEntity.noContent().build();
     }
+
+    @Override
+    public ResponseEntity<Void> removerItemVenda(String vendaId, ItemVendaRequest request) {
+        vendaService.removerItemVenda(vendaId, ItemVendaRequest.toModel(request));
+        return ResponseEntity.noContent().build();
+    }
 }
