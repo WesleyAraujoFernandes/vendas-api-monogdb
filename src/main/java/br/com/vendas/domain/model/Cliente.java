@@ -16,17 +16,16 @@ public class Cliente {
     private Endereco endereco;
     private Boolean ativo;
 
-    private Cliente(String id, String nome, String cpf, Endereco endereco, Boolean ativo) {
-        this.id = id;
+    private Cliente(String nome, String cpf, Endereco endereco) {
+        this.id = UUID.randomUUID().toString();
         this.nome = nome;
         this.cpf = cpf;
         this.endereco = endereco;
-        this.ativo = ativo;
+        this.ativo = true;
     }
 
     public static Cliente novoCliente(String nome, String cpf, Endereco endereco) {
-        final var id = UUID.randomUUID().toString();
-        return new Cliente(id, nome, cpf, endereco, true);
+        return new Cliente(nome, cpf, endereco);
     }
 
     public Cliente atualizar(String nome, String cpf, Endereco endereco) {
