@@ -12,7 +12,7 @@ public class SpringDocConfig {
     public OpenAPI springDocOpenAPI() {
         return new OpenAPI()
                 .info(new Info().title("vendas-api")
-                        .description("vendas-api reference for developers")
+                        .description("API para gerenciar vendas")
                         .version("1.0.0"));
     }
 }
