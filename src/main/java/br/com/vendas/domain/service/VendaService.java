@@ -17,20 +17,19 @@ import java.util.stream.Collectors;
 public class VendaService {
 
     private final VendaRepository vendaRepository;
-    private final ClienteRepository clienteRepository;
+    private final ClienteService clienteService;
     private final ProdutoRepository produtoRepository;
 
-    public VendaService(VendaRepository vendaRepository, ClienteRepository clienteRepository,
+    public VendaService(VendaRepository vendaRepository, ClienteService clienteService,
                         ProdutoRepository produtoRepository) {
         this.vendaRepository = vendaRepository;
-        this.clienteRepository = clienteRepository;
+        this.clienteService = clienteService;
         this.produtoRepository = produtoRepository;
     }
 
     public Venda cadastrar(Venda venda) {
 
-        clienteRepository.findById(venda.getClienteId())
-                .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado"));
+        clienteService.buscarPorId(venda.getClienteId());
 
         venda.agruparItens();
 
