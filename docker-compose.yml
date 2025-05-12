@@ -18,7 +18,12 @@ services:
       - "mongo_data:/data/db"
       - "mongo_config:/data/configdb"
       - "./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro"
-    entrypoint: [ "bash", "-c", "mongod --replSet rs0 --bind_ip_all --port 27021 & sleep 5 && mongosh --port 27021 /docker-entrypoint-initdb.d/init-mongo.js && wait" ]
+    entrypoint:
+      [
+        "bash",
+        "-c",
+        "mongod --replSet rs0 --bind_ip_all --port 27021 & sleep 5 && mongosh --port 27021 /docker-entrypoint-initdb.d/init-mongo.js && wait",
+      ]
 
 volumes:
   mongo_data:

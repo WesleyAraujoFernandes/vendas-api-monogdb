@@ -3,12 +3,6 @@ server:
   servlet:
     context-path: /vendas-api
 
-springdoc:
-  swagger-ui:
-    path: /documentacao
-  api-docs:
-    path: /docs
-
 spring:
   data:
     mongodb:
