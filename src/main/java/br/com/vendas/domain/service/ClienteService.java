@@ -31,7 +31,7 @@ public class ClienteService {
     }
 
     public List<Cliente> listar(String nome) {
-        if (StringUtils.hasText(nome)) {
+        if (StringUtils.hasText(nome)) { // Verifica se é diferente de nulo ou branco
             return clienteRepository.findByNomeContainingIgnoreCase(nome);
         }
         return clienteRepository.findAll();
