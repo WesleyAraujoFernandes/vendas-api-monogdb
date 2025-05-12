@@ -23,11 +23,20 @@ public class ClienteController implements ClienteOpenAPI {
         this.clienteService = clienteService;
     }
 
-    public ResponseEntity<CadastrarClienteResponse> cadastrar(CadastrarClienteRequest request) {
+    @PostMapping
+    public ResponseEntity<CadastrarClienteResponse> cadastrar(@RequestBody CadastrarClienteRequest request) {
         final var cliente = clienteService.cadastrar(CadastrarClienteRequest.toModel(request));
         return ResponseEntity.ok(CadastrarClienteResponse.fromModel(cliente));
     }
 
+    /*
+     * public ResponseEntity<CadastrarClienteResponse>
+     * cadastrar(CadastrarClienteRequest request) {
+     * final var cliente =
+     * clienteService.cadastrar(CadastrarClienteRequest.toModel(request));
+     * return ResponseEntity.ok(CadastrarClienteResponse.fromModel(cliente));
+     * }
+     */
     public ResponseEntity<AtualizarClienteResponse> atualizar(String id, AtualizarClienteRequest request) {
         final var cliente = clienteService.atualizar(id, AtualizarClienteRequest.toModel(request));
         return ResponseEntity.ok(AtualizarClienteResponse.fromModel(cliente));
